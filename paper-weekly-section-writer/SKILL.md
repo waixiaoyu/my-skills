@@ -1,25 +1,17 @@
 ---
 name: paper-weekly-section-writer
-description: "为 Paper Insight 论文周报生成单篇入选论文的中文正文小节。用于最终周报生成阶段，在代码已经完成候选复评、入选决策、排序和分层后，逐篇接收 selectedPaper、readingListReview、summary、originalText.excerpt 或摘要降级材料，产出风格一致、证据边界清楚、包含中文发表单位、阅读价值、研究问题、核心贡献、方法框架、实验结果、局限约束和 ADN 启发的 Markdown 小节；避免暴露复评、阈值、保底、旧分数等内部流程。"
+description: "为 Paper Insight 论文周报撰写单篇入选论文的中文 Markdown 小节。用于最终生成器逐篇处理 selectedPaper、readingListReview、originalText.excerpt 或 summary，输出 section_markdown、list_item、topic_signals 和 warnings；保持发表单位中文化、证据边界清楚、风格一致，并避免复评、阈值、保底、旧分数等内部流程词。"
 ---
 
 # 论文周报小节撰写
 
-使用这个 skill 为已经入选最终周报的一篇论文生成中文 Markdown 小节。它不是候选筛选、论文抽取或评分工具；代码框架仍负责抓取、清洗、复评、算分、入选、排序、分层、组装整篇周报和保存发布结果。
-
-这个 skill 的边界很窄：一次只处理一篇 `selectedPaper`，输出该论文可直接拼进最终周报正文的条目，以及最后完整论文清单可复用的一句话介绍。
-
-## 调用假设
-
-调用方已经决定这篇论文会进入最终周报，并已经给出阅读层级、序号、证据材料和必要的评审字段。收到输入后，直接撰写单篇小节，不再判断它是否应该入选，也不解释它处在整个流水线的哪一步。
-
-这个 skill 抽取的是现有最终周报生成 prompt 里的“单篇论文正文条目规范”。标题、YAML front matter、报告导读、本周趋势判断、分层排序、推荐阅读顺序和完整论文清单仍由调用方处理。
+输入视为已经入选最终周报的一篇论文。直接撰写可拼进正文的 `section_markdown`，并返回完整论文清单可复用的 `list_item`；不要重新判断入选、排序或全局周报结构。
 
 ## 输入
 
-输入必须是一篇已经入选最终周报的论文，而不是候选列表。至少提供：
+至少提供：
 
-- `report_context`：读者、主题、证据模式和展示策略。
+- `report_context`：读者、主题和证据模式。
 - `section_context`：当前论文在周报中的层级、序号和入选方式。
 - `paper`：标题、作者、链接、摘要、已有分析、周报复评结果，以及可选的原文摘录。
 
@@ -33,14 +25,6 @@ description: "为 Paper Insight 论文周报生成单篇入选论文的中文正
 - `list_item`：供最后「完整论文清单」复用的一句话介绍。
 - `topic_signals`：供总生成器提炼「本周趋势判断」的主题信号。
 - `warnings`：证据不足、单位线索不足或摘要降级等风险提示。
-
-## 不做什么
-
-- 不抓取 arXiv、PDF、HTML、项目页或代码仓库。
-- 不清洗原文、不切分文本、不缓存内容。
-- 不计算或校准分数，不决定论文是否入选，不改变排序和阅读层级。
-- 不生成整篇周报，不写 YAML front matter、报告导读、本周趋势判断、推荐阅读顺序或完整论文清单表格。
-- 不把 `fallback`、阈值、保底、复评流程或旧推荐列表状态写进读者可见正文。
 
 ## 小节格式
 
@@ -72,6 +56,7 @@ description: "为 Paper Insight 论文周报生成单篇入选论文的中文正
 ## 写作规则
 
 - 面向科研读者和技术负责人，写中文技术周报，不写营销文案。
+- 不生成整篇周报，不写 YAML front matter、报告导读、本周趋势判断、推荐阅读顺序或完整论文清单表格。
 - 按证据优先级写作：`paper.originalText.excerpt` 优先，其次是 `paper.readingListReview`，再其次是 `paper.analysis`，最后才是 `paper.summary`。
 - 如果没有原文，只能基于摘要和已有分析，并在涉及方法、结果和局限的段落写明「基于摘要和已有分析看」。
 - 发表单位必须中文化。优先使用 `paper.readingListReview.affiliations` 和 `affiliationEvidence`；如果仍是英文，翻译成通行中文名。不确定时写 `英文原名（中文意译）`。

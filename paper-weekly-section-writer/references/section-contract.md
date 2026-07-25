@@ -1,10 +1,6 @@
 # 单篇论文小节输入输出契约
 
-这个文件定义代码框架调用 `paper-weekly-section-writer` 时建议传入和读取的字段。字段名可以按现有代码适配，但语义边界应保持一致。
-
-## 契约假设
-
-调用方传入的 `paper` 已经是最终要写入周报的一篇论文；`section_context` 已经给出读者可见的阅读层级和序号。本契约只约束单篇输入和单篇输出，不描述上游流程。
+这个文件定义 `paper-weekly-section-writer` 的单篇输入和单篇输出。字段名可以按现有代码适配，语义边界应保持一致。
 
 ## 输入：Weekly Paper Section Request
 
@@ -13,20 +9,12 @@
   "report_context": {
     "audience": "科研读者和技术负责人",
     "topics": ["大模型", "智能体", "网络自治", "网络数字孪生", "系统架构", "华为 ADN"],
-    "source_basis": "full_text_excerpt | abstract_fallback",
-    "display_policy": {
-      "show_affiliation": true,
-      "show_reading_value": true,
-      "show_dimensions": true,
-      "avoid_internal_process_terms": true,
-      "final_list_columns": ["论文", "一句话介绍", "阅读级别", "链接"]
-    }
+    "source_basis": "full_text_excerpt | abstract_fallback"
   },
   "section_context": {
     "level": "本周必读 | 值得跟进 | 快速扫读",
     "index": 1,
-    "selection_reason": "threshold | fallback",
-    "reading_level": "本周必读"
+    "selection_reason": "threshold | fallback"
   },
   "paper": {
     "id": "paper id",
@@ -34,7 +22,7 @@
     "authors": ["author names"],
     "categories": ["cs.NI"],
     "primaryCategory": "cs.NI",
-    "published": "2026-07-25",
+    "published": "YYYY-MM-DD",
     "absLink": "https://arxiv.org/abs/...",
     "link": "https://arxiv.org/pdf/...",
     "summary": "abstract text",
@@ -46,12 +34,6 @@
     },
     "analysis": {
       "tldr": "已有一句话判断",
-      "scores": {
-        "scenarioProblemValue": 80,
-        "methodNovelty": 75,
-        "practicalValue": 78,
-        "evidence": 72
-      },
       "dimensionDetails": [
         {
           "key": "scenarioProblemValue",
@@ -65,12 +47,6 @@
     },
     "readingListReview": {
       "score": 82,
-      "scores": {
-        "scenarioProblemValue": 80,
-        "methodNovelty": 75,
-        "practicalValue": 78,
-        "evidence": 72
-      },
       "dimensionDetails": [
         {
           "key": "scenarioProblemValue",
