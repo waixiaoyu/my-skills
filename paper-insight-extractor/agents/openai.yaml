@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Insight Extractor"
+  short_description: "Evidence-bounded paper extraction workflow"
+  default_prompt: "Use $paper-insight-extractor to extract evidence-bounded paper fields from arXiv text."

@@ -5,6 +5,7 @@
 ## 当前 Skills
 
 - `technical-cooperation-insight`：分析教授、研究团队、实验室或专家组的 PPT、PDF、论文、报告、会议纪要或文本材料，形成有证据支撑的技术合作资源洞察。
+- `paper-insight-extractor`：定义 Paper Insight 风格的论文证据包、抽取字段、中文发表单位、证据边界、方向适配和读者侧周报表达规范。
 
 ## 目录约定
 
