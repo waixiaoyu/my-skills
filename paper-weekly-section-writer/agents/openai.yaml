@@ -1,0 +1,4 @@
+interface:
+  display_name: "论文周报小节撰写"
+  short_description: "为入选论文生成风格一致的中文周报小节"
+  default_prompt: "使用 $paper-weekly-section-writer 为一篇已入选论文生成中文周报正文小节和完整论文清单的一句话介绍。"
