@@ -2,6 +2,18 @@
 
 这个文件定义代码框架调用 `paper-weekly-section-writer` 时建议传入和读取的字段。字段名可以按现有代码适配，但语义边界应保持一致。
 
+## 流程位置
+
+调用方应先完成这些步骤：
+
+1. 生成推荐列表。
+2. 选择周报候选。
+3. 抓取可用原文或确认摘要降级。
+4. 完成周报专用评审和入选决策。
+5. 按最终阅读层级和顺序逐篇调用本 skill。
+
+本 skill 只处理第 5 步中的单篇论文，不接收整批候选列表，不返回整篇周报。
+
 ## 输入：Weekly Paper Section Request
 
 ```json
@@ -14,7 +26,8 @@
       "show_affiliation": true,
       "show_reading_value": true,
       "show_dimensions": true,
-      "avoid_internal_process_terms": true
+      "avoid_internal_process_terms": true,
+      "final_list_columns": ["论文", "一句话介绍", "阅读级别", "链接"]
     }
   },
   "section_context": {
@@ -85,6 +98,15 @@
 }
 ```
 
+## 输入字段说明
+
+- `report_context.source_basis` 表示本次小节的主要证据边界；当它是 `abstract_fallback` 时，正文要主动使用「基于摘要和已有分析看」。
+- `section_context.level` 是读者可见的阅读层级；`selection_reason` 是系统内部字段，不要原样写进正文。
+- `paper.originalText.excerpt` 是最高优先级证据，但它可能只是摘录，不等于完整论文。
+- `paper.readingListReview.affiliations` 是发表单位的首选来源；如果为空或为 `单位线索不足`，正文仍要展示单位线索不足和依据。
+- `paper.readingListReview.score` 可转写为 `阅读价值评分`；不要使用 `复评` 或 `复评分`。
+- `analysis.industryTags` 只能作为方向信号，不属于评分维度。
+
 ## 输出：Weekly Paper Section Result
 
 ```json
@@ -113,3 +135,16 @@
 - `topic_signals` 用短语表达，例如 `意图驱动的闭环自治评估`、`网络智能体工具调用可靠性`、`数字孪生仿真到真实网络迁移`。
 - `warnings` 只供系统日志或调试使用，不直接拼进发布正文，除非系统希望显式展示证据边界。
 - 如果 `paper.originalText.status` 不是 `available`，正文中涉及方法、结果和局限时必须用「基于摘要和已有分析看」或等价表述标明证据边界。
+- 如果分数、维度或机构字段缺失，用 `未提供`、`未提供明确维度` 或 `单位线索不足`，不要推测或补造。
+
+## 禁止输出
+
+读者可见的 `section_markdown` 中不要出现：
+
+- `复评`
+- `复评分`
+- `候选下限`
+- `内部阈值`
+- `保底补入`
+- `旧分数`
+- `推荐/隐藏状态`
