@@ -1,3 +1,13 @@
 interface:
   display_name: "研究团队素材洞察"
-  short_description: "从已有材料提炼团队信息和关键技术点"
+  short_description: "从已有研究材料提炼高价值技术成果、实验论据与具体合作方向"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  default_prompt: "使用 $research-team-material-insight 从材料中提炼团队概况、4项关键技术成果及3至4个具体合作方向。"
+policy:
+  products:
+  - "chatgpt"
+  - "codex"
+  - "api"
+  - "atlas"
+  allow_implicit_invocation: true
