@@ -1,9 +1,9 @@
 interface:
   display_name: "研究团队素材洞察"
-  short_description: "从已有研究材料提炼高价值技术成果、实验论据与具体合作方向"
+  short_description: "将研究材料转化为技术定位、成果价值、范式判断与合作方向"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"
-  default_prompt: "使用 $research-team-material-insight 从材料中提炼团队概况、4项关键技术成果及3至4个具体合作方向。"
+  default_prompt: "使用 $research-team-material-insight 将研究材料分析为技术合作价值：研究方向定位、核心成果洞察、技术范式判断及具体合作方向。"
 policy:
   products:
   - "chatgpt"
