@@ -1,0 +1,4 @@
+interface:
+  display_name: "优秀实践案例生成"
+  short_description: "从真实过程、规则与成果中提炼有证据、有亮点的优秀实践案例"
+  default_prompt: "Use $build-practice-case to turn my process materials and real outputs into an evidence-backed excellent-practice case."
