@@ -1,5 +1,5 @@
 interface:
-  display_name: "研究团队素材洞察"
+  display_name: "研究团队技术合作价值分析"
   short_description: "将研究材料转化为技术定位、成果价值、范式判断与合作方向"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"
